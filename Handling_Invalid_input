@@ -1,0 +1,113 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <limits>
+#include <cstdlib>
+
+void ignoreLine()
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+bool clearFailureExtraction()
+{
+    if (!std::cin)
+    {
+        if(std::cin.eof())
+        {
+            std::exit;
+        }
+        std::cin.clear();
+        ignoreLine();
+        
+        return true;
+    }
+    return false;
+}
+
+double getNumber()
+{
+    while(true)
+    {
+        std::cout << "Enter a Number: ";
+        double num{};
+        std::cin >> num;
+    
+        if(clearFailureExtraction())
+        {
+            std::cout << "Ooops invalid input try again \n";
+            continue;
+        }
+        ignoreLine();
+        
+        return num;
+    }
+    
+}
+char getOperator()
+{
+    while (true)
+    {
+        
+        std::cout << "Enter mathematical operation:";
+        char Operator{};
+        std::cin >> Operator;
+    
+        if(!clearFailureExtraction())
+        {
+            ignoreLine();
+        }
+        
+        switch(Operator)
+        {
+            case '+':
+            case '-':
+            case '/':
+            case '*':
+            return Operator;
+            default:
+                std::cout << "Invalid operator Try Again \n";
+            
+        }
+        
+    }
+}
+
+void printResult(double num1, char Operator, double num2)
+{
+    switch(Operator)
+    {
+    case '+':
+        std::cout << num1 << " "<< Operator << " "<< num2 << "equal" << " " << num1 + num2;
+        return;
+    case '-':
+        std::cout << num1 << " " << Operator << " "<< num2 << "equal"<< " " << num1 - num2;
+        return;
+    case '/':
+        if(num2 == 0.0)
+            break;
+            
+        std::cout << num1 << " "<< Operator << " "<< num2 << " "<< "equal" << " "<< num1 / num2;
+        return;
+    case '*':
+        std::cout << num1 << " " << Operator << " "<< num2 << " "<< "equal" << " "<< num1 * num2;
+    }
+    
+}
+int main() {
+    // Write C++ code here
+    std::cout << "Try programiz.pro \n ";
+    
+    double num1 {getNumber()};
+    char Operator{getOperator()};
+    double num2 {getNumber()};
+    
+    while(Operator == '/', num2 == 0.0)
+    {
+        std::cout << "denominator can't be zero. Try again /n";
+        num2 = getNumber();
+    }
+    
+    printResult(num1, Operator, num2);
+    
+    return 0;
+}
