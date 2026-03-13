@@ -1,0 +1,5 @@
+// returns true if std::cin has unextracted input on the current line, false otherwise
+bool hasUnextractedInput()
+{
+    return !std::cin.eof() && std::cin.peek() != '\n';
+}
